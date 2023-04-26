@@ -94,11 +94,15 @@ class Agent:
       final_move = [0,0,0]
       if random.randint(0, 200) < self.epsilon:
          move = random.randint(0, 2)
+         print('1. move: ', move)
          final_move[move] = 1
       else: 
          state0 = torch.tensor(state, dtype=torch.float)
+         print('state0: ', state0)
          prediction = self.model(state0)   
+         print('prediction: ', prediction)
          move = torch.argmax(prediction).item()
+         print('2. move: ', move)
          final_move[move] = 1   
       return final_move           
 

@@ -14,6 +14,7 @@ class Linear_QNet(nn.Module):
     def forward(self, x):
         x = F.relu(self.linear1(x))
         x = self.linear2(x)
+        print('forward: ',x)
         return x    
     
     def save(self, file_name= 'game_model.pth'):
@@ -21,7 +22,7 @@ class Linear_QNet(nn.Module):
         if not  os.path.exists(model_folder):
             os.makedirs(model_folder)
         file_name = os.path.join(model_folder, file_name)
-        torch.save(self.state_dict(), file_name)    
+        torch.save(self.state_dict(), file_name)    x
 
 class QTrainer():
     def __init__(self, model, lr, gamma):
