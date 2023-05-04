@@ -22,7 +22,7 @@ class Linear_QNet(nn.Module):
         if not  os.path.exists(model_folder):
             os.makedirs(model_folder)
         file_name = os.path.join(model_folder, file_name)
-        torch.save(self.state_dict(), file_name)    x
+        torch.save(self.state_dict(), file_name) 
 
 class QTrainer():
     def __init__(self, model, lr, gamma):
