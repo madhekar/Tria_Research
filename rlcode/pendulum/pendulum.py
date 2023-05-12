@@ -38,7 +38,8 @@ class ActorCritic:
 		# Calculate de/dA as = de/dC * dC/dA, where e is error, C critic, A act #
 		# ===================================================================== #
 
-		self.memory = deque(maxlen=2000)
+		self.memory = deque(maxlen=20000)
+		
 		self.actor_state_input, self.actor_model = self.create_actor_model()
 		_, self.target_actor_model = self.create_actor_model()
 
