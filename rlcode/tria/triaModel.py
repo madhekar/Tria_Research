@@ -1,11 +1,17 @@
 import gym
 from stable_baselines3 import PPO
 from stable_baselines3.ppo import MlpPolicy
-from stable_baselines3.common.env_util import make_vec_env
+
+
+
 import os
 import time
+from stable_baselines3.common.env_util import make_vec_env
+import tria_rl
 
-# Saving logs to visulise in Tensorboard, saving models
+# Saving logs to visulize in Tensorboard, saving models
+
+
 models_dir = f"models/Tria-{time.time()}"
 logdir = f"logs/Tria-{time.time()}"
 if not os.path.exists(models_dir):
@@ -14,7 +20,6 @@ if not os.path.exists(logdir):
     os.makedirs(logdir)
 
 # Parallel environments
-import tria_rl
 env = make_vec_env('tria_rl/TriaClimate-v0', n_envs=1)
 #env = make_vec_env("MountainCarContinuous-v0", n_envs=1)
 
@@ -26,7 +31,7 @@ model = PPO(
     batch_size=64,
     ent_coef=0.00429,
     learning_rate=7.77e-05,
-    n_epochs=10,
+    n_epochs=100,
     n_steps=8,
     gae_lambda=0.9,
     gamma=0.9999,
@@ -44,13 +49,12 @@ model = PPO(
 #Training and saving models along the way
 TIMESTEPS = 200000
 for i in range(5):
-    model.learn(total_timesteps=TIMESTEPS,reset_num_timesteps=False, tb_log_name="PPO")
-    model.save(f"{models_dir}/{TIMESTEPS*i}")
+    model.learn(total_timesteps=TIMESTEPS, reset_num_timesteps=False, tb_log_name="PPO")
+    model.save(f"{models_dir}/Tria-{TIMESTEPS*i}")
 
 # Check model performance
 # load the best model you observed from tensorboard - the one reach the goal/ obtaining highest return
-#models_dir = "models/Mountain-1653282767.3143597"
-model_path = f"{models_dir}/400000"
+model_path = f"{models_dir}/Tria-600000"
 best_model = PPO.load(model_path, env=env)
 obs = env.reset()
 while True:
