@@ -16,8 +16,8 @@ learning_rate = 3e-4
 
 # Constants
 GAMMA = 0.99
-num_steps = 300
-max_episodes = 3000
+num_steps = 1000
+max_episodes = 300
 
 class ActorCritic(nn.Module):
     def __init__(self, num_inputs, num_actions, hidden_size, learning_rate=3e-4):
@@ -45,7 +45,7 @@ class ActorCritic(nn.Module):
 def a2c(env):
     num_inputs = env.observation_space.shape[0]
     num_outputs = env.action_space.n
-    #print('obs: {} actions: {}'.format(num_inputs, num_outputs))
+    print('obs: {} actions: {}'.format(num_inputs, num_outputs))
     actor_critic = ActorCritic(num_inputs, num_outputs, hidden_size)
     ac_optimizer = optim.Adam(actor_critic.parameters(), lr=learning_rate)
 
@@ -63,9 +63,9 @@ def a2c(env):
 
         for steps in range(num_steps):
             value, policy_dist = actor_critic.forward(state)
-            print('value1: ', value.detach().numpy())
+            #print('value1: ', value.detach().numpy())
             value = value.detach().numpy()[0]
-            print('value2: ', value)
+            #print('value2: ', value)
             dist = policy_dist.detach().numpy() 
 
             action = np.random.choice(num_outputs, p=np.squeeze(dist))
@@ -82,6 +82,7 @@ def a2c(env):
             
             if done or steps == num_steps-1:
                 Qval, _ = actor_critic.forward(new_state)
+                #print('Qval:', Qval)
                 Qval = Qval.detach().numpy()[0]
                 all_rewards.append(np.sum(rewards))
                 all_lengths.append(steps)
