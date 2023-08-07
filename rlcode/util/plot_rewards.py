@@ -5,7 +5,7 @@ import math
 
 tnormal, hnormal, anormal=[60,80], [40,60], [0,400]
 trange, hrange, arange =120,100,1000
-tscale, hscale, ascale= -.7,-.9,-.13
+tscale, hscale, ascale= -.9,-.9,-.03
 
 def compute_reward(rList, cNum, rScale):
     if rList[0] <= cNum <= rList[1]:
