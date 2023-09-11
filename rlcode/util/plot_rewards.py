@@ -5,11 +5,11 @@ import math
 
 tnormal, hnormal, anormal=[60,80], [40,60], [0,400]
 trange, hrange, arange =120,100,1000
-tscale, hscale, ascale= -.9,-.9,-.03
+tscale, hscale, ascale= -1,-1,-.15
 
 def compute_reward(rList, cNum, rScale):
     if rList[0] <= cNum <= rList[1]:
-        rDist = 100
+        rDist = 10
     else:     
         rNear = min(rList, key=lambda x:abs(x-cNum))
         rDist = abs(rNear - cNum) * rScale
